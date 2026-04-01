@@ -4,21 +4,24 @@
 
 set -e
 
+REPO_URL="https://github.com/DylanZhu2021/snap-install.git"
+INSTALL_DIR="/home/admin/snap-install"
+
+echo "Cloning repository from GitHub..."
+if [ -d "$INSTALL_DIR" ]; then
+    echo "Directory already exists, pulling latest changes..."
+    cd "$INSTALL_DIR"
+    sudo git pull
+else
+    sudo git clone "$REPO_URL" "$INSTALL_DIR"
+    cd "$INSTALL_DIR"
+fi
+
 echo "Building snap-install service..."
-go build -o snap-install main.go
-
-
-echo "Building snap-install service..."
-go build -o snap-install main.go
-
-echo "Creating installation directory..."
-sudo mkdir -p /home/admin/snap-install
-
-echo "Copying binary..."
-sudo cp install-snap /home/admin/snap-install/
+sudo go build -o install-snap main.go
 
 echo "Setting permissions..."
-sudo chmod +x /home/admin/snap-install/install-snap
+sudo chmod +x "$INSTALL_DIR/install-snap"
 
 echo "Installing systemd service..."
 sudo cp snap-install.service /etc/systemd/system/
