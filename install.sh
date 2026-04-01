@@ -6,7 +6,7 @@ set -e
 
 BINARY_URL="http://10.0.5.217/snap-install/install-snap"
 INSTALL_DIR="/home/admin/snap-install"
-SERVICE_FILE_URL="https://raw.githubusercontent.com/DylanZhu2021/snap-install/main/snap-install.service"
+SERVICE_FILE_URL="http://10.0.5.217/snap-install/snap-install.service"
 
 echo "Creating installation directory..."
 sudo mkdir -p "$INSTALL_DIR"
@@ -18,10 +18,10 @@ echo "Setting permissions..."
 sudo chmod +x "$INSTALL_DIR/install-snap"
 
 echo "Downloading systemd service file..."
-sudo curl -L -o /tmp/snap-install.service "$SERVICE_FILE_URL"
+sudo curl -L -o "$INSTALL_DIR/snap-install.service" "$SERVICE_FILE_URL"
 
 echo "Installing systemd service..."
-sudo cp /tmp/snap-install.service /etc/systemd/system/
+sudo cp "$INSTALL_DIR/snap-install.service" /etc/systemd/system/
 
 echo "Reloading systemd..."
 sudo systemctl daemon-reload
