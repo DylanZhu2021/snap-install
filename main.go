@@ -77,6 +77,7 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
                 if (response.ok) {
                     statusDiv.className = 'success';
                     statusDiv.textContent = result.message;
+                    document.getElementById('url').value = '';
                 } else {
                     statusDiv.className = 'error';
                     statusDiv.textContent = 'Error: ' + result.error;
