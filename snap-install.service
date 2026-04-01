@@ -1,0 +1,14 @@
+[Unit]
+Description=Snap Install Web Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/home/admin/snap-install
+ExecStart=/home/admin/snap-install/install-snap
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
